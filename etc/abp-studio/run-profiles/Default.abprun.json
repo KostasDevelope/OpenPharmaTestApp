@@ -1,0 +1,18 @@
+﻿{
+  "applications": {
+    "OpenPharmaTestApp.HttpApi.Host": {
+      "type": "dotnet-project",
+      "launchUrl": "https://localhost:44340",
+      "path": "../../../src/OpenPharmaTestApp.HttpApi.Host/OpenPharmaTestApp.HttpApi.Host.csproj",
+      "kubernetesService": ".*-httpapihost$",
+      "healthCheckEndpoint": "/health-status",
+      "healthUiEndpoint": "/health-ui",
+      "execution": {
+        "order": 4
+      }
+    }
+  },
+  "containers": {
+    "serviceName": "OpenPharmaTestApp-Containers",
+  }
+}

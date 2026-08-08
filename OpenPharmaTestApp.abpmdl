@@ -1,0 +1,101 @@
+{
+  "template": "app",
+  "imports": {
+    "Volo.Abp.LeptonXLiteTheme": {
+      "version": "4.2.0",
+      "isInstalled": true
+    },
+    "Volo.Abp.Account": {
+      "version": "9.2.0",
+      "isInstalled": true
+    },
+    "Volo.Abp.OpenIddict": {
+      "version": "9.2.0",
+      "isInstalled": true
+    },
+    "Volo.Abp.Identity": {
+      "version": "9.2.0",
+      "isInstalled": true
+    },
+    "Volo.Abp.TenantManagement": {
+      "version": "9.2.0",
+      "isInstalled": true
+    },
+    "Volo.Abp.SettingManagement": {
+      "version": "9.2.0",
+      "isInstalled": true
+    },
+    "Volo.Abp.PermissionManagement": {
+      "version": "9.2.0",
+      "isInstalled": true
+    },
+    "Volo.Abp.FeatureManagement": {
+      "version": "9.2.0",
+      "isInstalled": true
+    }
+  },
+  "folders": {
+    "items": {
+      "src": {},
+      "test": {}
+    }
+  },
+  "packages": {
+    "OpenPharmaTestApp.Application": {
+      "path": "src/OpenPharmaTestApp.Application/OpenPharmaTestApp.Application.abppkg",
+      "folder": "src"
+    },
+    "OpenPharmaTestApp.Application.Tests": {
+      "path": "test/OpenPharmaTestApp.Application.Tests/OpenPharmaTestApp.Application.Tests.abppkg",
+      "folder": "test"
+    },
+    "OpenPharmaTestApp.Domain.Shared": {
+      "path": "src/OpenPharmaTestApp.Domain.Shared/OpenPharmaTestApp.Domain.Shared.abppkg",
+      "folder": "src"
+    },
+    "OpenPharmaTestApp.Application.Contracts": {
+      "path": "src/OpenPharmaTestApp.Application.Contracts/OpenPharmaTestApp.Application.Contracts.abppkg",
+      "folder": "src"
+    },
+    "OpenPharmaTestApp.HttpApi": {
+      "path": "src/OpenPharmaTestApp.HttpApi/OpenPharmaTestApp.HttpApi.abppkg",
+      "folder": "src"
+    },
+    "OpenPharmaTestApp.HttpApi.Client": {
+      "path": "src/OpenPharmaTestApp.HttpApi.Client/OpenPharmaTestApp.HttpApi.Client.abppkg",
+      "folder": "src"
+    },
+    "OpenPharmaTestApp.EntityFrameworkCore.Tests": {
+      "path": "test/OpenPharmaTestApp.EntityFrameworkCore.Tests/OpenPharmaTestApp.EntityFrameworkCore.Tests.abppkg",
+      "folder": "test"
+    },
+    "OpenPharmaTestApp.EntityFrameworkCore": {
+      "path": "src/OpenPharmaTestApp.EntityFrameworkCore/OpenPharmaTestApp.EntityFrameworkCore.abppkg",
+      "folder": "src"
+    },
+    "OpenPharmaTestApp.TestBase": {
+      "path": "test/OpenPharmaTestApp.TestBase/OpenPharmaTestApp.TestBase.abppkg",
+      "folder": "test"
+    },
+    "OpenPharmaTestApp.Domain.Tests": {
+      "path": "test/OpenPharmaTestApp.Domain.Tests/OpenPharmaTestApp.Domain.Tests.abppkg",
+      "folder": "test"
+    },
+    "OpenPharmaTestApp.HttpApi.Client.ConsoleTestApp": {
+      "path": "test/OpenPharmaTestApp.HttpApi.Client.ConsoleTestApp/OpenPharmaTestApp.HttpApi.Client.ConsoleTestApp.abppkg",
+      "folder": "test"
+    },
+    "OpenPharmaTestApp.DbMigrator": {
+      "path": "src/OpenPharmaTestApp.DbMigrator/OpenPharmaTestApp.DbMigrator.abppkg",
+      "folder": "src"
+    },
+    "OpenPharmaTestApp.HttpApi.Host": {
+      "path": "src/OpenPharmaTestApp.HttpApi.Host/OpenPharmaTestApp.HttpApi.Host.abppkg",
+      "folder": "src"
+    },
+    "OpenPharmaTestApp.Domain": {
+      "path": "src/OpenPharmaTestApp.Domain/OpenPharmaTestApp.Domain.abppkg",
+      "folder": "src"
+    }
+  }
+}
