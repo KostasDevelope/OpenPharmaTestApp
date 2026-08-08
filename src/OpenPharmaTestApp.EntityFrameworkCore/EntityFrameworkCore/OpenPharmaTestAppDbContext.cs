@@ -1,4 +1,5 @@
-using Microsoft.EntityFrameworkCore;
+﻿using Microsoft.EntityFrameworkCore;
+using OpenPharmaTestApp.TasksList;
 using Volo.Abp.AuditLogging.EntityFrameworkCore;
 using Volo.Abp.BackgroundJobs.EntityFrameworkCore;
 using Volo.Abp.BlobStoring.Database.EntityFrameworkCore;
@@ -9,9 +10,9 @@ using Volo.Abp.EntityFrameworkCore.Modeling;
 using Volo.Abp.FeatureManagement.EntityFrameworkCore;
 using Volo.Abp.Identity;
 using Volo.Abp.Identity.EntityFrameworkCore;
+using Volo.Abp.OpenIddict.EntityFrameworkCore;
 using Volo.Abp.PermissionManagement.EntityFrameworkCore;
 using Volo.Abp.SettingManagement.EntityFrameworkCore;
-using Volo.Abp.OpenIddict.EntityFrameworkCore;
 using Volo.Abp.TenantManagement;
 using Volo.Abp.TenantManagement.EntityFrameworkCore;
 
@@ -25,9 +26,7 @@ public class OpenPharmaTestAppDbContext :
     ITenantManagementDbContext,
     IIdentityDbContext
 {
-    /* Add DbSet properties for your Aggregate Roots / Entities here. */
-
-
+   
     #region Entities from the modules
 
     /* Notice: We only implemented IIdentityProDbContext and ISaasDbContext
@@ -57,6 +56,11 @@ public class OpenPharmaTestAppDbContext :
 
     #endregion
 
+    public DbSet<Customer> Customers { get; set; }
+    public DbSet<TaskList> TaskLists { get; set; }
+    public DbSet<CustomerTaskList> CustomerTaskLists { get; set; }
+
+
     public OpenPharmaTestAppDbContext(DbContextOptions<OpenPharmaTestAppDbContext> options)
         : base(options)
     {
@@ -78,14 +82,41 @@ public class OpenPharmaTestAppDbContext :
         builder.ConfigureOpenIddict();
         builder.ConfigureTenantManagement();
         builder.ConfigureBlobStoring();
-        
-        /* Configure your own tables/entities inside here */
 
-        //builder.Entity<YourEntity>(b =>
-        //{
-        //    b.ToTable(OpenPharmaTestAppConsts.DbTablePrefix + "YourEntities", OpenPharmaTestAppConsts.DbSchema);
-        //    b.ConfigureByConvention(); //auto configure for the base class props
-        //    //...
-        //});
+        var dBTablePrefix = "OpenPharma";
+
+        builder.Entity<Customer>(b =>
+        {
+            b.ToTable($"{dBTablePrefix}Customers");
+            b.ConfigureByConvention();
+            b.Property(x => x.Name).IsRequired().HasMaxLength(50);
+        });
+
+        builder.Entity<TaskList>(b =>
+        {
+            b.ToTable($"{dBTablePrefix}TaskLists");
+            b.ConfigureByConvention();
+            b.Property(x => x.Name).IsRequired().HasMaxLength(256);
+        });
+
+        builder.Entity<CustomerTaskList>(b =>
+        {
+            b.ToTable($"{dBTablePrefix}CustomerTaskLists");
+            b.ConfigureByConvention();
+            b.HasKey(x => new { x.CustomerId, x.TaskListId });
+
+            b.HasOne(x => x.Customer)
+             .WithMany(x => x.CustomerTaskLists)
+             .HasForeignKey(x => x.CustomerId)
+             .IsRequired()
+             .OnDelete(DeleteBehavior.Cascade);
+
+            b.HasOne(x => x.TaskList)
+             .WithMany(x => x.CustomerTaskLists)
+             .HasForeignKey(x => x.TaskListId)
+             .IsRequired()
+             .OnDelete(DeleteBehavior.Cascade);
+        });
+
     }
 }
