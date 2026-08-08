@@ -8,7 +8,6 @@ namespace OpenPharmaTestApp.Commons
     {
         public void Apply(OpenApiDocument swaggerDoc, DocumentFilterContext context)
         {
-            // Укажите префиксы путей, которые нужно скрыть
             var prefixesToHide = new[]
             {
             "/api/abp/",
