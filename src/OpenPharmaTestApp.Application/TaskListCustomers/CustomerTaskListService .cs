@@ -20,6 +20,13 @@ namespace OpenPharmaTestApp.TaskListCustomers
         public async Task<CustomerTaskListDto> GetAsync(Guid customerId, Guid taskListId)
         {
             var customerTaskList = await _customerTaskListRepository.GetAsync(customerId, taskListId);
+
+            if (customerTaskList == null)
+                throw new UserFriendlyException(
+                    message: $"Customer Task List with CustomerId {customerId} and TaskListId {taskListId} not found.",
+                    code: "404",
+                    details: $"Customer Task List with CustomerId {customerId} and TaskListId {taskListId} not found.");
+
             return customerTaskList != null
                 ? ObjectMapper.Map<CustomerTaskList, CustomerTaskListDto>(customerTaskList)
                 : new CustomerTaskListDto();
