@@ -18,5 +18,12 @@ public class OpenPharmaTestAppApplicationAutoMapperProfile : Profile
            .ForMember(d => d.Id, opt => opt.MapFrom(src => src.Id))
            .ForMember(d => d.Name, opt => opt.MapFrom(src => src.Name))
            .ForMember(d => d.CreationTime, opt => opt.MapFrom(src => src.CreationTime));
+
+
+        CreateMap<CustomerTaskList, CustomerTaskListDto>(MemberList.Source)
+           .ForMember(d => d.TaskListId, opt => opt.MapFrom(src => src.TaskListId))
+           .ForMember(d => d.CustomerId, opt => opt.MapFrom(src => src.CustomerId))
+           .ForMember(d => d.AssignedAt, opt => opt.MapFrom(src => src.AssignedAt));
+
     }
 }

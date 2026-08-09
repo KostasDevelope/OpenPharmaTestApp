@@ -40,8 +40,8 @@ namespace OpenPharmaTestApp.TaskListCustomers
         public async Task<TaskListDto> GetAsync(Guid id)
         {
             var taskList = await _taskListRepository.GetAsync(id);
-            return taskList != null 
-                ?  ObjectMapper.Map<TaskList, TaskListDto>(taskList) 
+            return taskList != null
+                ? ObjectMapper.Map<TaskList, TaskListDto>(taskList)
                 : new TaskListDto();
         }
 
@@ -66,10 +66,10 @@ namespace OpenPharmaTestApp.TaskListCustomers
         {
             var taskList = await _taskListRepository.GetAsync(model.Id);
 
-            if (taskList == null)throw new Exception($"TaskList with Id {model.Id} not found.");
-            
+            if (taskList == null) throw new Exception($"TaskList with Id {model.Id} not found.");
+
             taskList.Name = model.Name;
-            
+
             var taskListNew = await _taskListRepository.UpdateAsync(taskList);
             return taskListNew != null
                 ? ObjectMapper.Map<TaskList, TaskListDto>(taskListNew)

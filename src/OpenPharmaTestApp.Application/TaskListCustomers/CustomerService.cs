@@ -29,12 +29,12 @@ namespace OpenPharmaTestApp.TaskListCustomers
             var customerDtos = ObjectMapper.Map<List<Customer>, List<CustomerDto>>(taskLists);
             return new PagedResultDto<CustomerDto>(totalCount, customerDtos);
         }
-       
+
         public async Task<CustomerDto> GetAsync(Guid id)
         {
             var customer = await _customerRepository.GetAsync(id);
-            return customer != null 
-                ?  ObjectMapper.Map<Customer, CustomerDto>(customer) 
+            return customer != null
+                ? ObjectMapper.Map<Customer, CustomerDto>(customer)
                 : new CustomerDto();
         }
 
@@ -44,7 +44,7 @@ namespace OpenPharmaTestApp.TaskListCustomers
 
             if (customerOld != null) throw new Exception($"Customer with name {model.Name} already exists.");
 
-            var customer = new Customer(Guid.NewGuid(),model.Name);
+            var customer = new Customer(Guid.NewGuid(), model.Name);
 
             var customerNew = await _customerRepository.CreateAsync(customer);
             return customerNew != null
@@ -59,7 +59,7 @@ namespace OpenPharmaTestApp.TaskListCustomers
             if (customer == null) throw new Exception($"Customer with Id {model.Id} not found.");
 
             customer.Name = model.Name;
-            
+
             var customerNew = await _customerRepository.UpdateAsync(customer);
 
             return customerNew != null
