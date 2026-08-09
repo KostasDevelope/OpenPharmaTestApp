@@ -1,0 +1,62 @@
+//-----------Search---------------
+/api/app/customer/search
+{
+  "maxResultCount": 10,
+  "skipCount": 0,
+  "sorting": "",
+  "filter": ""
+}
+
+{
+  "maxResultCount": 10,
+  "skipCount": 0,
+  "sorting": "desc",
+  "filter": ""
+}
+
+{
+  "maxResultCount": 10,
+  "skipCount": 0,
+  "sorting": "asc",
+  "filter": ""
+}
+
+{
+  "maxResultCount": 10,
+  "skipCount": 0,
+  "sorting": "asc",
+  "filter": "alex."
+}
+
+//===============Get===
+/api/app/customer/598d4d6d-df85-4618-972a-c288c1dfa5f3
+
+//=============Create=====================
+/api/app/customer
+
+check on error
+{
+  "name": "alex.smith89@gmail.com"
+}
+
+{
+  "name": "alex2.smith89@gmail.com"
+}
+
+//===============Update===================
+check on error
+{
+  "name": "alex22.smith89@gmail.com",
+  "id": "303472e5-c9c7-4ce2-94d5-84b8f5d9bb1f"
+}
+
+
+{
+  "name": "alex22.smith89@gmail.com",
+  "id": "303472e5-c9c7-4ce2-94d5-84b8f5d9bb1e"
+}
+//===================Delete==================
+/api/app/customer/{id}
+check on error
+303472e5-c9c7-4ce2-94d5-84b8f5d9bb1f
+303472e5-c9c7-4ce2-94d5-84b8f5d9bb1e

@@ -18,6 +18,7 @@ using System.IO;
 using System.Linq;
 using Volo.Abp;
 using Volo.Abp.Account.Web;
+using Volo.Abp.AspNetCore.ExceptionHandling;
 using Volo.Abp.AspNetCore.MultiTenancy;
 using Volo.Abp.AspNetCore.Mvc;
 using Volo.Abp.AspNetCore.Mvc.Libs;
@@ -99,6 +100,14 @@ public class OpenPharmaTestAppHttpApiHostModule : AbpModule
             {
                 options.ForwardedHeaders = ForwardedHeaders.XForwardedProto;
             });
+
+            if (hostingEnvironment.IsDevelopment())
+            {
+                Configure<AbpExceptionHandlingOptions>(options =>
+                {
+                    options.SendExceptionsDetailsToClients = true;
+                });
+            }
         }
 
         ConfigureAuthentication(context);

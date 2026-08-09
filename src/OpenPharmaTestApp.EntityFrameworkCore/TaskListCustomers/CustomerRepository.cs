@@ -32,7 +32,7 @@ namespace OpenPharmaTestApp.TaskListCustomers
             var taskLists = await (await GetDbSetAsync())
                 .WhereIf(!string.IsNullOrEmpty(filter), p => p.Name.Contains(filter))
                 .Where(p => p.IsDeleted == isDeleted)
-                .OrderBy($"creationTime {(sorting.IsNullOrEmpty() ? "desc" : sorting)}" )
+                .OrderBy($"creationTime {(sorting.IsNullOrEmpty() ? "desc" : sorting)}")
                 .PageBy(skipCount, maxResultCount)
                 .ToListAsync(GetCancellationToken(cancellationToken));
 
@@ -43,16 +43,16 @@ namespace OpenPharmaTestApp.TaskListCustomers
         {
             var count = await (await GetDbSetAsync())
                  .WhereIf(!string.IsNullOrEmpty(filter), p => p.Name.Contains(filter))
-                 .Where(p => p.IsDeleted == isDeleted)          
+                 .Where(p => p.IsDeleted == isDeleted)
                  .CountAsync(GetCancellationToken(cancellationToken));
 
             return count;
         }
 
-      
+
         public async Task<Customer?> GetAsync(Guid id)
         {
-            return await (await GetDbSetAsync()).FirstOrDefaultAsync(s=> s.Id == id);
+            return await (await GetDbSetAsync()).FirstOrDefaultAsync(s => s.Id == id);
         }
 
         public async Task<Customer?> CreateAsync(Customer customer)
@@ -62,12 +62,12 @@ namespace OpenPharmaTestApp.TaskListCustomers
 
         public async Task<Customer?> UpdateAsync(Customer customer)
         {
-            return await UpdateAsync(customer);
+            return await base.UpdateAsync(customer);
         }
 
-        public async Task<Customer?> DeleteAsync(Customer customer)
+        public async Task DeleteAsync(Customer customer)
         {
-            return await DeleteAsync(customer);
+            await base.DeleteAsync(customer);
         }
 
         public async Task<Customer?> GetByNameAsync(string name)

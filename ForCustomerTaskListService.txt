@@ -1,0 +1,8 @@
+//=============Get============
+/api/app/customer-task-list
+Take ids from db, table  "OpenPharmaCustomerTaskLists"
+customerId = 12195a7d-e6a1-4315-bc94-859bbdcd846f
+taskListId = 3571ee49-2c7f-468a-b3df-96e658d54842
+
+check Error
+ taskListId = 3571ee49-2c7f-468a-b3df-96e658d54843

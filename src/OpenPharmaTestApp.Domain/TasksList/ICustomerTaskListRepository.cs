@@ -8,7 +8,8 @@ namespace OpenPharmaTestApp.TasksList
     {
         Task<CustomerTaskList?> GetAsync(Guid customerId, Guid taskListId);
         Task<CustomerTaskList?> CreateAsync(CustomerTaskList taskList);
-        Task<CustomerTaskList?> DeleteAsync(CustomerTaskList taskList);
-        Task<int> GetAssignCountAsync(Guid taskListId);
+        Task DeleteAsync(CustomerTaskList taskList);
+        Task<int> GetAssignTaskListCountAsync(Guid taskListId);
+        Task<int> GetAssignCustomerCountAsync(Guid customerId);
     }
 }

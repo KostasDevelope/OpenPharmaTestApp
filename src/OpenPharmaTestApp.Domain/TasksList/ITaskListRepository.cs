@@ -14,7 +14,7 @@ namespace OpenPharmaTestApp.TasksList
         Task<TaskList?> GetAsync(Guid id);
         Task<TaskList?> CreateAsync(TaskList taskList);
         Task<TaskList?> UpdateAsync(TaskList taskList);
-        Task<TaskList?> DeleteAsync(TaskList taskList);
+        Task DeleteAsync(TaskList taskList);
         Task<TaskList?> GetByNameAsync(string name);
     }
 }

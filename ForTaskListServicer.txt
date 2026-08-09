@@ -1,0 +1,57 @@
+//============Search====================
+/api/app/task-list/search
+{
+  "maxResultCount": 10,
+  "skipCount": 0,
+  "sorting": "",
+  "filter": ""
+}
+
+{
+  "maxResultCount": 10,
+  "skipCount": 0,
+  "sorting": "desc",
+  "filter": ""
+}
+
+{
+  "maxResultCount": 10,
+  "skipCount": 0,
+  "sorting": "asc",
+  "filter": ""
+}
+
+{
+  "maxResultCount": 10,
+  "skipCount": 0,
+  "sorting": "asc",
+  "filter": "Review"
+}
+
+{
+  "maxResultCount": 10,
+  "skipCount": 0,
+  "sorting": "asc",
+  "filter": "Test Task"
+}
+//===============GetByCustomId============
+/api/app/task-list/by-custom-id/{customerId}
+598d4d6d-df85-4618-972a-c288c1dfa5f3
+//===========Get===============
+/api/app/task-list/{id}
+3571ee49-2c7f-468a-b3df-96e658d54842
+//===============Create=============
+{
+  "name": "Test Task",
+  "customerId": "57ff27dc-fd54-4fb8-bf87-7d1f4b763ae8"
+}
+//===========Update====================
+/api/app/task-list
+{
+  "name": "Test Task Test Task",
+  "id": "8db983f3-3cde-42dd-91bc-e8f9be9e6089"
+}
+8db983f3-3cde-42dd-91bc-e8f9be9e6089
+//================Delete=====================
+/api/app/task-list/{id}
+  8db983f3-3cde-42dd-91bc-e8f9be9e6089

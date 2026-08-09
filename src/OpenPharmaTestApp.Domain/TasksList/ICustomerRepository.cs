@@ -13,7 +13,7 @@ namespace OpenPharmaTestApp.TasksList
         Task<Customer?> GetAsync(Guid id);
         Task<Customer?> CreateAsync(Customer taskList);
         Task<Customer?> UpdateAsync(Customer taskList);
-        Task<Customer?> DeleteAsync(Customer taskList);
+        Task DeleteAsync(Customer taskList);
         Task<Customer?> GetByNameAsync(string name);
     }
 }

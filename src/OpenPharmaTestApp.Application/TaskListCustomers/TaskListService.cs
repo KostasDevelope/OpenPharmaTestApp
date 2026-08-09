@@ -3,6 +3,7 @@ using System;
 using System.Collections.Generic;
 using System.Threading;
 using System.Threading.Tasks;
+using Volo.Abp;
 using Volo.Abp.Application.Dtos;
 using Volo.Abp.Application.Services;
 
@@ -11,9 +12,11 @@ namespace OpenPharmaTestApp.TaskListCustomers
     public class TaskListService : ApplicationService, ITaskListService
     {
         private readonly ITaskListRepository _taskListRepository;
-        public TaskListService(ITaskListRepository taskListRepository)
+        private readonly ICustomerTaskListRepository _customerTaskListRepository;
+        public TaskListService(ITaskListRepository taskListRepository, ICustomerTaskListRepository customerTaskListRepository)
         {
             _taskListRepository = taskListRepository;
+            _customerTaskListRepository = customerTaskListRepository;
         }
         public async Task<PagedResultDto<TaskListDto>> SearchAsync(SearchInput searchInput, CancellationToken cancellationToken)
         {
@@ -50,13 +53,18 @@ namespace OpenPharmaTestApp.TaskListCustomers
 
             var customerOld = await _taskListRepository.GetByNameAsync(model.Name);
 
-            if (customerOld != null) throw new Exception($"TaskList with name {model.Name} already exists.");
+            if (customerOld != null) throw new
+                    UserFriendlyException(
+                        message: $"TaskList with name {model.Name} already exists.",
+                        code: "500",
+                        details: $"TaskList with name {model.Name} already exists.");
 
             var taskList = new TaskList(Guid.NewGuid(),
                 model.Name,
                 model.CustomerId);
 
             var taskListNew = await _taskListRepository.CreateAsync(taskList);
+           
             return taskListNew != null
                 ? ObjectMapper.Map<TaskList, TaskListDto>(taskListNew)
                 : new TaskListDto();
@@ -66,11 +74,17 @@ namespace OpenPharmaTestApp.TaskListCustomers
         {
             var taskList = await _taskListRepository.GetAsync(model.Id);
 
-            if (taskList == null) throw new Exception($"TaskList with Id {model.Id} not found.");
+            if (taskList == null) throw new 
+                UserFriendlyException(
+                       message: $"TaskList with Id {model.Id} not found.",
+                       code: "500",
+                       details: $"TaskList with Id {model.Id} not found.");
+
 
             taskList.Name = model.Name;
 
             var taskListNew = await _taskListRepository.UpdateAsync(taskList);
+            
             return taskListNew != null
                 ? ObjectMapper.Map<TaskList, TaskListDto>(taskListNew)
                 : new TaskListDto();
@@ -80,11 +94,24 @@ namespace OpenPharmaTestApp.TaskListCustomers
         {
             var taskList = await _taskListRepository.GetAsync(id);
 
-            if (taskList == null) throw new Exception($"TaskList with Id {id} not found.");
+            if (taskList == null) throw new
+                    UserFriendlyException(
+                      message: $"TaskList with Id {id} not found.",
+                      code: "500",
+                      details: $"TaskList with Id {id} not found.");
 
-            var taskListNew = await _taskListRepository.DeleteAsync(taskList);
-            return taskListNew != null
-                ? ObjectMapper.Map<TaskList, TaskListDto>(taskListNew)
+
+            var assignCount = await _customerTaskListRepository.GetAssignTaskListCountAsync(id);
+            if(assignCount > 0)
+                throw new UserFriendlyException(
+                   message: $"TaskList with Id {id} is assigned to {assignCount} customer Task List and cannot be deleted."
+                   , code: "500"
+                   , details: $"TaskList with Id {id} is assigned to {assignCount} customer Task List and cannot be deleted.");
+
+            await _taskListRepository.DeleteAsync(taskList);
+           
+            return taskList != null
+                ? ObjectMapper.Map<TaskList, TaskListDto>(taskList)
                 : new TaskListDto();
         }
 

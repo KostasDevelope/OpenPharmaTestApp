@@ -73,9 +73,9 @@ namespace OpenPharmaTestApp.TaskListCustomers
             return await UpdateAsync(taskList);
         }
 
-        public async Task<TaskList?> DeleteAsync(TaskList taskList)
+        public async Task DeleteAsync(TaskList taskList)
         {
-            return await DeleteAsync(taskList);
+            await base.DeleteAsync(taskList);
         }
 
         public async Task<TaskList?> GetByNameAsync(string name)

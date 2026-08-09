@@ -3,6 +3,7 @@ using System;
 using System.Collections.Generic;
 using System.Threading;
 using System.Threading.Tasks;
+using Volo.Abp;
 using Volo.Abp.Application.Dtos;
 using Volo.Abp.Application.Services;
 
@@ -11,8 +12,11 @@ namespace OpenPharmaTestApp.TaskListCustomers
     public class CustomerService : ApplicationService, ICustomerService
     {
         private readonly ICustomerRepository _customerRepository;
-        public CustomerService(ICustomerRepository customerRepository)
+        private readonly ICustomerTaskListRepository _customerTaskListRepository;
+        public CustomerService(ICustomerRepository customerRepository,
+            ICustomerTaskListRepository customerTaskListRepository)
         {
+            _customerTaskListRepository = customerTaskListRepository;
             _customerRepository = customerRepository;
         }
         public async Task<PagedResultDto<CustomerDto>> SearchAsync(SearchInput searchInput, CancellationToken cancellationToken)
@@ -42,7 +46,10 @@ namespace OpenPharmaTestApp.TaskListCustomers
         {
             var customerOld = await _customerRepository.GetByNameAsync(model.Name);
 
-            if (customerOld != null) throw new Exception($"Customer with name {model.Name} already exists.");
+            if (customerOld != null) throw new UserFriendlyException(
+                message: $"Customer with name {model.Name} already exists.",
+                code: "500",
+                details: $"Customer with name {model.Name} already exists.");
 
             var customer = new Customer(Guid.NewGuid(), model.Name);
 
@@ -56,7 +63,10 @@ namespace OpenPharmaTestApp.TaskListCustomers
         {
             var customer = await _customerRepository.GetAsync(model.Id);
 
-            if (customer == null) throw new Exception($"Customer with Id {model.Id} not found.");
+            if (customer == null) throw new UserFriendlyException(
+                message: $"Customer with Id {model.Id} not found.",
+                code: "500",
+                details: $"Customer with Id {model.Id} not found.");
 
             customer.Name = model.Name;
 
@@ -71,11 +81,23 @@ namespace OpenPharmaTestApp.TaskListCustomers
         {
             var customer = await _customerRepository.GetAsync(id);
 
-            if (customer == null) throw new Exception($"Customer with Id {id} not found.");
+            if (customer == null) throw new UserFriendlyException(
+                 message: $"Customer with Id {id} not found."
+                 , code: "500"
+                , details: $"Customer with Id {id} not found.");
 
-            var taskListNew = await _customerRepository.DeleteAsync(customer);
-            return taskListNew != null
-                ? ObjectMapper.Map<Customer, CustomerDto>(taskListNew)
+
+            var assignCount = await _customerTaskListRepository.GetAssignCustomerCountAsync(id);
+
+            if (assignCount > 0)
+                throw new UserFriendlyException(
+                    message: $"Customer with Id {id} is assigned to {assignCount} task lists and cannot be deleted."
+                    , code: "500"
+                    , details: $"Customer with Id {id} is assigned to {assignCount} task lists and cannot be deleted.");
+
+            await _customerRepository.DeleteAsync(customer);
+            return customer != null
+                ? ObjectMapper.Map<Customer, CustomerDto>(customer)
                 : new CustomerDto();
         }
 
