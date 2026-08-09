@@ -47,7 +47,7 @@ namespace OpenPharmaTestApp.TasksList
 
         public async Task SeedAsync(DataSeedContext context)
         {
-            var customers = new List<Customer>() {
+            var customers = new List<Customer> {
             await SeedCustomer(new Customer(
                 id: Guid.NewGuid(),
                 name: "alex.smith89@gmail.com"
@@ -98,7 +98,7 @@ namespace OpenPharmaTestApp.TasksList
                name: "test.user2026@testmail.io"
            )) };
 
-            var taskLists = new List<TaskList>() {
+            var taskLists = new List<TaskList> {
 
              await SeedTaskList(new TaskList(
                 id: Guid.NewGuid(),
@@ -127,101 +127,102 @@ namespace OpenPharmaTestApp.TasksList
                 await SeedTaskList(new TaskList(
                    id: Guid.NewGuid(),
                    name: "Set up CI/CD pipeline for the staging environment",
-                   customerId: customers[0].Id
+                   customerId: customers[1].Id
                 )),
 
                 await SeedTaskList(new TaskList(
                    id: Guid.NewGuid(),
                    name: "Approve mobile app design mockups",
-                   customerId: customers[0].Id
+                   customerId: customers[1].Id
                 )),
 
                   await SeedTaskList(new TaskList(
                    id: Guid.NewGuid(),
                    name: "Optimize SQL queries in the notification service",
-                   customerId: customers[0].Id
+                   customerId: customers[1].Id
                 )),
 
                  await SeedTaskList(new TaskList(
                    id: Guid.NewGuid(),
                    name: "Conduct interview for the Frontend Developer position",
-                   customerId: customers[0].Id
+                   customerId: customers[2].Id
                 )),
-                 await SeedTaskList(new TaskList(
+
+                await SeedTaskList(new TaskList(
                    id: Guid.NewGuid(),
                    name: "Prepare presentation for the client demo",
-                   customerId: customers[0].Id
+                   customerId: customers[2].Id
                 )),
                  await SeedTaskList(new TaskList(
                    id: Guid.NewGuid(),
                    name: "Update dependency versions and NuGet packages",
-                   customerId: customers[0].Id
+                   customerId: customers[2].Id
                 )),
 
                 await SeedTaskList(new TaskList(
                    id: Guid.NewGuid(),
                    name: "Write unit tests for the payment module",
-                   customerId: customers[0].Id
+                   customerId: customers[3].Id
                 )),
                 await SeedTaskList(new TaskList(
                    id: Guid.NewGuid(),
                    name: "Configure monitoring and alerts in Grafana",
-                   customerId: customers[0].Id
+                   customerId: customers[4].Id
                 )),
                 await SeedTaskList(new TaskList(
                    id: Guid.NewGuid(),
                    name: "Draft technical specification for CRM integration",
-                   customerId: customers[0].Id
+                   customerId: customers[5].Id
                 )),
                 await SeedTaskList(new TaskList(
                    id: Guid.NewGuid(),
                    name: "Perform web application security audit",
-                   customerId: customers[0].Id
+                   customerId: customers[6].Id
                 )),             
                 await SeedTaskList(new TaskList(
                    id: Guid.NewGuid(),
                    name: "Localize system interface into English",
-                   customerId: customers[0].Id
+                   customerId: customers[7].Id
                 )),                       
                 await SeedTaskList(new TaskList(
                    id: Guid.NewGuid(),
                    name: "Order new hardware for the development team",
-                   customerId: customers[0].Id
+                   customerId: customers[8].Id
                 )),                          
                 await SeedTaskList(new TaskList(
                    id: Guid.NewGuid(),
                    name: "Design database schema for the analytics module",
-                   customerId: customers[0].Id
+                   customerId: customers[9].Id
                 )),
 
                 await SeedTaskList(new TaskList(
                    id: Guid.NewGuid(),
                    name: "Refactor payment processing service",
-                   customerId: customers[0].Id
+                   customerId: customers[9].Id
                 )),
                 await SeedTaskList(new TaskList(
                    id: Guid.NewGuid(),
                    name: "Organize team retrospective meeting",
-                   customerId: customers[0].Id
+                   customerId: customers[9].Id
                 )),
                 await SeedTaskList(new TaskList(
                    id: Guid.NewGuid(),
                    name: "Review and update backlog tickets in task tracker",
-                   customerId: customers[0].Id
+                   customerId: customers[9].Id
                 ))
             };
 
             await SeedCustomerTaskList(customers[0], taskLists[0]);
             await SeedCustomerTaskList(customers[0], taskLists[1]);
             await SeedCustomerTaskList(customers[0], taskLists[2]);
-            await SeedCustomerTaskList(customers[0], taskLists[3]);
-            await SeedCustomerTaskList(customers[0], taskLists[4]);
-            await SeedCustomerTaskList(customers[0], taskLists[5]);
-            await SeedCustomerTaskList(customers[1], taskLists[6]);
-            await SeedCustomerTaskList(customers[1], taskLists[7]);
-            await SeedCustomerTaskList(customers[1], taskLists[8]);
-            await SeedCustomerTaskList(customers[1], taskLists[9]);
-            await SeedCustomerTaskList(customers[1], taskLists[10]);
+            await SeedCustomerTaskList(customers[1], taskLists[3]);
+            await SeedCustomerTaskList(customers[1], taskLists[4]);
+            await SeedCustomerTaskList(customers[2], taskLists[5]);
+            await SeedCustomerTaskList(customers[2], taskLists[6]);
+            await SeedCustomerTaskList(customers[3], taskLists[7]);
+            await SeedCustomerTaskList(customers[4], taskLists[8]);
+            await SeedCustomerTaskList(customers[5], taskLists[9]);
+            await SeedCustomerTaskList(customers[6], taskLists[10]);
         }
 
     }

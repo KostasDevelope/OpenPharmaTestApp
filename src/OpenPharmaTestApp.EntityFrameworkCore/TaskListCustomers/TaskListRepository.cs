@@ -1,4 +1,5 @@
 ﻿using Microsoft.EntityFrameworkCore;
+using Microsoft.Extensions.Configuration;
 using OpenPharmaTestApp.EntityFrameworkCore;
 using OpenPharmaTestApp.TasksList;
 using System;
@@ -14,8 +15,11 @@ namespace OpenPharmaTestApp.TaskListCustomers
 {
     public class TaskListRepository : EfCoreRepository<OpenPharmaTestAppDbContext, TaskList, Guid>, ITaskListRepository
     {
-        public TaskListRepository(IDbContextProvider<OpenPharmaTestAppDbContext> dbContextProvider) : base(dbContextProvider)
+        private readonly IConfiguration _configuration;
+        public TaskListRepository(IDbContextProvider<OpenPharmaTestAppDbContext> dbContextProvider,
+            IConfiguration configuration) : base(dbContextProvider)
         {
+            _configuration = configuration;
         }
 
         public async Task<List<TaskList>> SearchAsync(string filter,
@@ -45,5 +49,33 @@ namespace OpenPharmaTestApp.TaskListCustomers
             return count;
         }
 
+        public async Task<List<TaskList>> GetByCustomIdAsync(Guid customerId, CancellationToken cancellationToken = default)
+        {
+            return await (await GetDbSetAsync())
+                .Include(s => s.CustomerTaskLists)
+                .Where(s => s.CustomerId == customerId 
+                || s.CustomerTaskLists.Select(o=>o.CustomerId).Contains(customerId))
+                .ToListAsync(GetCancellationToken(cancellationToken));
+        }
+
+        public async Task<TaskList?> GetAsync(Guid id)
+        {
+            return await (await GetDbSetAsync()).FirstOrDefaultAsync(s=> s.Id == id);
+        }
+
+        public async Task<TaskList?> CreateAsync(TaskList taskList)
+        {
+            return await InsertAsync(taskList);
+        }
+
+        public async Task<TaskList?> UpdateAsync(TaskList taskList)
+        {
+            return await UpdateAsync(taskList);
+        }
+
+        public async Task<TaskList?> DeleteAsync(TaskList taskList)
+        {
+            return await DeleteAsync(taskList);
+        }
     }
 }
