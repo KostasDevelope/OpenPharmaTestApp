@@ -13,16 +13,16 @@ using Volo.Abp.EntityFrameworkCore;
 
 namespace OpenPharmaTestApp.TaskListCustomers
 {
-    public class TaskListRepository : EfCoreRepository<OpenPharmaTestAppDbContext, TaskList, Guid>, ITaskListRepository
+    public class CustomerRepository : EfCoreRepository<OpenPharmaTestAppDbContext, Customer, Guid>, ICustomerRepository
     {
         private readonly IConfiguration _configuration;
-        public TaskListRepository(IDbContextProvider<OpenPharmaTestAppDbContext> dbContextProvider,
+        public CustomerRepository(IDbContextProvider<OpenPharmaTestAppDbContext> dbContextProvider,
             IConfiguration configuration) : base(dbContextProvider)
         {
             _configuration = configuration;
         }
 
-        public async Task<List<TaskList>> SearchAsync(string filter,
+        public async Task<List<Customer>> SearchAsync(string filter,
           string? sorting = "desc",
           int maxResultCount = 10,
           int skipCount = 0,
@@ -49,36 +49,28 @@ namespace OpenPharmaTestApp.TaskListCustomers
             return count;
         }
 
-        public async Task<List<TaskList>> GetByCustomIdAsync(Guid customerId, CancellationToken cancellationToken = default)
-        {
-            return await (await GetDbSetAsync())
-                .Include(s => s.CustomerTaskLists)
-                .Where(s => s.CustomerId == customerId 
-                || s.CustomerTaskLists.Select(o=>o.CustomerId).Contains(customerId))
-                .ToListAsync(GetCancellationToken(cancellationToken));
-        }
-
-        public async Task<TaskList?> GetAsync(Guid id)
+      
+        public async Task<Customer?> GetAsync(Guid id)
         {
             return await (await GetDbSetAsync()).FirstOrDefaultAsync(s=> s.Id == id);
         }
 
-        public async Task<TaskList?> CreateAsync(TaskList taskList)
+        public async Task<Customer?> CreateAsync(Customer customer)
         {
-            return await InsertAsync(taskList);
+            return await InsertAsync(customer);
         }
 
-        public async Task<TaskList?> UpdateAsync(TaskList taskList)
+        public async Task<Customer?> UpdateAsync(Customer customer)
         {
-            return await UpdateAsync(taskList);
+            return await UpdateAsync(customer);
         }
 
-        public async Task<TaskList?> DeleteAsync(TaskList taskList)
+        public async Task<Customer?> DeleteAsync(Customer customer)
         {
-            return await DeleteAsync(taskList);
+            return await DeleteAsync(customer);
         }
 
-        public async Task<TaskList?> GetByNameAsync(string name)
+        public async Task<Customer?> GetByNameAsync(string name)
         {
             return await (await GetDbSetAsync())
                 .FirstOrDefaultAsync(s => s.Name.ToLower() == name.ToLower());

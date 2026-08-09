@@ -47,6 +47,11 @@ namespace OpenPharmaTestApp.TaskListCustomers
 
         public async Task<TaskListDto> CreateAsync(CreateTaskListDto model)
         {
+
+            var customerOld = await _taskListRepository.GetByNameAsync(model.Name);
+
+            if (customerOld != null) throw new Exception($"TaskList with name {model.Name} already exists.");
+
             var taskList = new TaskList(Guid.NewGuid(),
                 model.Name,
                 model.CustomerId);
