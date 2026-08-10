@@ -20,6 +20,8 @@
   </ItemGroup>
 
   <ItemGroup>
+    <ProjectReference Include="..\..\src\OpenPharmaTestApp.Application\OpenPharmaTestApp.Application.csproj" />
+    <ProjectReference Include="..\..\src\OpenPharmaTestApp.EntityFrameworkCore\OpenPharmaTestApp.EntityFrameworkCore.csproj" />
     <ProjectReference Include="..\..\src\OpenPharmaTestApp.HttpApi.Client\OpenPharmaTestApp.HttpApi.Client.csproj" />
   </ItemGroup>
 

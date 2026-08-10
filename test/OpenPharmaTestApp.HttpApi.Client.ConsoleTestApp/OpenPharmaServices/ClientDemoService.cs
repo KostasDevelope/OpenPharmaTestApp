@@ -4,7 +4,7 @@ using Volo.Abp.DependencyInjection;
 using Volo.Abp.Identity;
 using Volo.Abp.Account;
 
-namespace OpenPharmaTestApp.HttpApi.Client.ConsoleTestApp;
+namespace OpenPharmaTestApp.HttpApi.Client.ConsoleTestApp.OpenPharmaServices;
 
 public class ClientDemoService : ITransientDependency
 {

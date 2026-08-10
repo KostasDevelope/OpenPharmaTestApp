@@ -1,6 +1,7 @@
-﻿using System;
-using Microsoft.Extensions.DependencyInjection;
+﻿using Microsoft.Extensions.DependencyInjection;
+using OpenPharmaTestApp.EntityFrameworkCore;
 using Polly;
+using System;
 using Volo.Abp.Autofac;
 using Volo.Abp.Http.Client;
 using Volo.Abp.Http.Client.IdentityModel;
@@ -11,7 +12,9 @@ namespace OpenPharmaTestApp.HttpApi.Client.ConsoleTestApp;
 [DependsOn(
     typeof(AbpAutofacModule),
     typeof(OpenPharmaTestAppHttpApiClientModule),
-    typeof(AbpHttpClientIdentityModelModule)
+    typeof(AbpHttpClientIdentityModelModule),
+    typeof(OpenPharmaTestAppApplicationModule),
+    typeof(OpenPharmaTestAppEntityFrameworkCoreModule)
     )]
 public class OpenPharmaTestAppConsoleApiClientModule : AbpModule
 {
