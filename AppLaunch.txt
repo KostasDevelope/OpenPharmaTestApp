@@ -1,3 +1,6 @@
+https://github.com/KostasDevelope/OpenPharmaTestApp.git
+gh repo clone KostasDevelope/OpenPharmaTestApp
+
 1. Run a build and pull in all packages.
 2. Create an empty database in PostgreSQL 
     "Default": "Host=localhost;Port=5432;Database=OpenPharmaTestDb;User ID=postgres;Password=kogus1981;Client Encoding=UTF-8"
@@ -8,4 +11,4 @@
 4.Run this aap OpenPharmaTestApp.DbMigrator - create the database structure and add initial data
 5. Run or publith this app - OpenPharmaTestApp.HttpApi.Host
  
- 
+ Enjoy, thanks for watching
