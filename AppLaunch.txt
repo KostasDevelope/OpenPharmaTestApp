@@ -1,0 +1,11 @@
+1. Run a build and pull in all packages.
+2. Create an empty database in PostgreSQL 
+    "Default": "Host=localhost;Port=5432;Database=OpenPharmaTestDb;User ID=postgres;Password=kogus1981;Client Encoding=UTF-8"
+3. Edit this path "Host=localhost;Port=5432;Database=OpenPharmaTestDb;User ID=postgres;Password=kogus1981;Client Encoding=UTF-8" in 3 apps:
+   OpenPharmaTestApp.TestBase
+   OpenPharmaTestApp.DbMigrator
+   OpenPharmaTestApp.HttpApi.Host
+4.Run this aap OpenPharmaTestApp.DbMigrator - create the database structure and add initial data
+5. Run or publith this app - OpenPharmaTestApp.HttpApi.Host
+ 
+ 
