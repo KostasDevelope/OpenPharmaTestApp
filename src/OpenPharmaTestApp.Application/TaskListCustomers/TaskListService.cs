@@ -77,7 +77,7 @@ namespace OpenPharmaTestApp.TaskListCustomers
             if (taskList == null) throw new 
                 UserFriendlyException(
                        message: $"TaskList with Id {model.Id} not found.",
-                       code: "500",
+                       code: "404",
                        details: $"TaskList with Id {model.Id} not found.");
 
 
@@ -97,7 +97,7 @@ namespace OpenPharmaTestApp.TaskListCustomers
             if (taskList == null) throw new
                     UserFriendlyException(
                       message: $"TaskList with Id {id} not found.",
-                      code: "500",
+                      code: "404",
                       details: $"TaskList with Id {id} not found.");
 
 

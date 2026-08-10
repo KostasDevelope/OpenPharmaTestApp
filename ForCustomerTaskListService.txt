@@ -4,5 +4,39 @@ Take ids from db, table  "OpenPharmaCustomerTaskLists"
 customerId = 12195a7d-e6a1-4315-bc94-859bbdcd846f
 taskListId = 3571ee49-2c7f-468a-b3df-96e658d54842
 
-check Error
+check on Error
  taskListId = 3571ee49-2c7f-468a-b3df-96e658d54843
+ //==============Create=========================
+ /api/app/customer-task-list
+ check on Error
+ {
+   "customerId": "12195a7d-e6a1-4315-bc94-859bbdcd846f",
+   "taskListId": "3571ee49-2c7f-468a-b3df-96e658d54842"
+ }
+
+==== check on Error more then 3 customer to one task-list ====
+take ids from db table "OpenPharmaCustomerTaskLists"
+ {
+   "customerId": "43e610b3-12e6-4898-b96c-1f3b28506b80",
+   "taskListId": "3571ee49-2c7f-468a-b3df-96e658d54842"
+ }
+
+ 
+ {
+   "customerId": "57ff27dc-fd54-4fb8-bf87-7d1f4b763ae8",
+   "taskListId": "3571ee49-2c7f-468a-b3df-96e658d54842"
+ }
+
+  {
+   "customerId": "96a5f4b4-d0ef-4121-8da4-65f0ad60fe98",
+   "taskListId": "3571ee49-2c7f-468a-b3df-96e658d54842"
+ }
+
+  {
+   "customerId": "dca91dc3-2ec8-4c58-be45-67eef418b73e",
+   "taskListId": "3571ee49-2c7f-468a-b3df-96e658d54842"
+ }
+ //========================Delete================
+ /api/app/customer-task-list
+ "customerId": "57ff27dc-fd54-4fb8-bf87-7d1f4b763ae8",
+   "taskListId": "3571ee49-2c7f-468a-b3df-96e658d54842"

@@ -57,7 +57,7 @@ namespace OpenPharmaTestApp.TaskListCustomers
 
         public async Task<Customer?> CreateAsync(Customer customer)
         {
-            return await InsertAsync(customer);
+            return await InsertAsync(customer, autoSave: true);
         }
 
         public async Task<Customer?> UpdateAsync(Customer customer)

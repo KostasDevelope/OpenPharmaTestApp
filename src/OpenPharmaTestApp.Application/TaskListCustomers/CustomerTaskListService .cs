@@ -45,15 +45,15 @@ namespace OpenPharmaTestApp.TaskListCustomers
 
             if (!int.TryParse(_configuration["TaskListSettings:LimitAssign"], out int limitAssign)) limitAssign = 3;
 
-            var assignCount = await _customerTaskListRepository.GetAssignCustomerCountAsync(model.CustomerId);
-            if (assignCount >= limitAssign) throw new
-                UserFriendlyException(
-                    message: $"Customer with Id {model.CustomerId} has reached the maximum number of assigned task lists ({limitAssign}).",
+            var assignCount = await _customerTaskListRepository.GetAssignTaskListCountAsync(model.TaskListId);
+            if (assignCount >= limitAssign)
+                throw new UserFriendlyException(
+                    message: $"Task List with TaskListId {model.TaskListId} has reached the maximum number of assignments ({limitAssign}).",
                     code: "500",
-                    details: $"Customer with Id {model.CustomerId} has reached the maximum number of assigned task lists ({limitAssign}).");
+                    details: $"Task List with TaskListId {model.TaskListId} has reached the maximum number of assignments ({limitAssign}).");
 
 
-            customerTaskList = new CustomerTaskList(model.CustomerId, model.CustomerId);
+            customerTaskList = new CustomerTaskList(model.CustomerId, model.TaskListId);
 
             var customerTaskListNew = await _customerTaskListRepository.CreateAsync(customerTaskList);
             return customerTaskListNew != null
@@ -65,11 +65,11 @@ namespace OpenPharmaTestApp.TaskListCustomers
         {
             var customerTaskList = await _customerTaskListRepository.GetAsync(customerId, taskListId);
 
-            if (customerTaskList != null) throw new
+            if (customerTaskList == null) throw new
                 UserFriendlyException(
-                    message: $"Customer Task List with CustomerId {customerId} and TaskListId {taskListId} already exists.",
+                    message: $"Customer Task List with CustomerId {customerId} and TaskListId {taskListId} not found.",
                     code: "500",
-                    details: $"Customer Task List with CustomerId {customerId} and TaskListId {taskListId} already exists.");
+                    details: $"Customer Task List with CustomerId {customerId} and TaskListId {taskListId} not found.");
 
             await _customerTaskListRepository.DeleteAsync(customerTaskList);
             return customerTaskList != null
